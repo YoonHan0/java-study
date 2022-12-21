@@ -10,6 +10,16 @@ public class GoddsApp {
 		camera.setCountSold(50); //판매량
 		
 		camera.printInfo();
+
+		//		정보은닉(데이터보호)
+		camera.setPrice(-1);
+		
+		Goods goods2 = new Goods();
+		Goods goods3 = new Goods();
+		System.out.println(Goods.countOfGoods);
+		
+		camera.setPrice(4000000);
+		System.out.println(camera.calcDiscountPrice(0.5f));
 	}
 
 }
