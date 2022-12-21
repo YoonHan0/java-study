@@ -17,10 +17,10 @@ public class ArrayUtilTest {
 		System.out.println(Arrays.toString(d));
 		
 		int[] i1 = ArrayUtil.doubleToInt(new double[] {10.0, 11.1, 22.2, 33.3});
-		System.out.println(Arrays.toString(d));
+		System.out.println(Arrays.toString(i1));
 		
-		int[] c1 = ArrayUtil.concat(new int[] {10, 11, 22, 33}, new int[] {10, 11, 22, 33});
-		System.out.println(Arrays.toString(d));
+		int[] c1 = ArrayUtil.concat(new int[] {10, 11, 22, 33}, new int[] {44, 55, 66, 77});
+		System.out.println(Arrays.toString(c1));
 		
 //		Goods g = new Goods();	// 객체 선언
 //		System.out.println(g);	// println으로 객체를 출력하면 toString()을 사용해서 출력한다는 것을 알 수 있다.

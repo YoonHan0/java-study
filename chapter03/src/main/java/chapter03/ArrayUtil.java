@@ -10,4 +10,29 @@ public class ArrayUtil {
 		
 		return result;
 	}
+	
+	public static int[] doubleToInt(double[] is) {
+		int[] result = new int[is.length];
+		
+		for(int i = 0; i < is.length; i++) {
+			result[i] = (int)is[i];
+		}
+		return result;
+	}
+	
+	public static int[] concat(int[] num1, int[] num2) {
+		int[] result = new int[num1.length + num2.length];
+
+//		for(int i = 0; i < result.length; i++) {
+//			if(i < num1.length) {
+//				result[i] = num1[i];
+//			}
+//			else {
+//				result[i] = num2[i-num1.length];
+//			}
+//		}
+		System.arraycopy(num1, 0, result, 0, num1.length);
+		System.arraycopy(num2, 0, result, num1.length, num2.length);
+		return result;
+	}
 }
