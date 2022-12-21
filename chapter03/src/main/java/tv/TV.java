@@ -13,15 +13,21 @@ public class TV {
 	public void power(boolean on) {
 		this.power = on;
 	}
-	
-	public void channel(int count) {
-		if(count > 255) {
-			count = 255;
-		}
-		else if(count < 1) {
+	public void ttt(int count, int tHis, int max) {
+		if(count > max) {
 			count = 1;
 		}
-		this.channel = count;
+		else if(count < 0) {
+			count = max;
+		}
+		tHis = count;
+	}
+	public void channel(int channel) {
+		ttt(channel, this.channel, 225);
+	}
+	
+	public void volume(int volume) {
+		ttt(volume, this.volume, 100);
 	}
 	
 	public void channel(boolean up) {
@@ -32,16 +38,6 @@ public class TV {
 			this.channel -= 1;
 		}
 		channel(this.channel);
-	}
-	
-	public void volume(int volume) {
-		if(volume > 100) {
-			volume = 100;
-		}
-		else if(volume < 1) {
-			volume = 1;
-		}
-		this.volume = volume;
 	}
 	
 	public void volume(boolean up) {
