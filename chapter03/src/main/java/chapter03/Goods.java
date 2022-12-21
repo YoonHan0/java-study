@@ -12,6 +12,16 @@ public class Goods {
 		countOfGoods += 1; 
 		// Goods.countOfGoods += 1; // 생략 가능
 	}
+	
+	// 생성자 오버로딩으로 만들기
+	public Goods(String name, int price, int countStock, int countSold) {
+		this.name = name;
+		this.price = price;
+		this.countStock = countStock;
+		this.countSold = countSold;
+		
+		countOfGoods += 1;
+	}
 	public int calcDiscountPrice(float discountRate) {
 		// int i = (int)4.5;
 		return (int)(price * discountRate);
