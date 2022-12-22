@@ -1,13 +1,9 @@
 package paint;
 
-public abstract class Shape {
+public abstract class Shape implements Drawable{
 	private String lineColor;
 	private String fillColor;
 	
-	
-	public void draw() {
-		System.out.println("그림그리기");
-	}
 	public String getLineColor() {
 		return lineColor;
 	}

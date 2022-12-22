@@ -13,9 +13,10 @@ public class ColorPoint extends Point {
 	public String getColor() {
 		return color;
 	}
-//	public void setColor(String color) {
-//		this.color = color;
-//	}
+	
+	public void setColor(String color) {
+		this.color = color;
+	}
 
 	@Override
 	public void show() {
