@@ -3,8 +3,7 @@ package paint;
 public class Rect extends Shape {
 	private int x1, y1;
 	private int x2, y2;
-	private int x3, y3;
-	private int x4, y4;
+
 	
 	@Override
 	public void draw() {
@@ -35,18 +34,5 @@ public class Rect extends Shape {
 	public void setY2(int y2) {
 		this.y2 = y2;
 	}
-	public int getY3() {
-		return y3;
-	}
 
-	public void setY3(int y3) {
-		this.y3 = y3;
-	}
-	public int getY4() {
-		return y4;
-	}
-
-	public void setY4(int y4) {
-		this.y4 = y4;
-	}
 }
