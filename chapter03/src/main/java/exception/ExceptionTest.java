@@ -8,7 +8,7 @@ public class ExceptionTest {
 		
 		System.out.println("Some Code1... / file open...!");
 		
-		try { //의심이 있는(예외가 날 거 같은) 코드에 try
+		try { 
 			System.out.println("Some Code2...");
 			System.out.println("Some Code3...");
 			
@@ -28,8 +28,6 @@ public class ExceptionTest {
 			return;	// 종료
 			// System.exit(0);	// exit(0)이면 정상 종료, 다른 것들은 에러를 출력함?
 		} finally {
-			// 예외가 발생하거나 발생하지 않거나 무조건 실행되는 부분
-			// 보통 자원 정리를 한다!
 			System.out.println("자원 정리 예: file close...");
 		}
 		// 여기 부분(예외가 발생한 후)에는 굳이 코드를 넣지말자(한다면 return정도)
