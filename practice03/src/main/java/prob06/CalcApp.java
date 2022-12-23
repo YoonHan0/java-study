@@ -28,7 +28,7 @@ public class CalcApp {
 			
 			switch( tokens[ 1 ] ) {
 				case "+" : {
-					Add add = new Add();
+					Arith add = new Add();
 					add.setValue( lValue, rValue );
 					int result = add.calculate();
 					System.out.println( ">> " + result );
