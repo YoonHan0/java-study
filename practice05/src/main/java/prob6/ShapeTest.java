@@ -9,7 +9,7 @@ public class ShapeTest {
 		List<Shape> list = new ArrayList<Shape>();
 		
 		list.add( new Rectangle(5, 6) );
-		list.add( new RectTriangle( 6, 2) );
+		list.add( new RectTriangle(6, 2) );
 		
 		for( Shape shape : list ) {
 			System.out.println( "area:" + shape.getArea() );
