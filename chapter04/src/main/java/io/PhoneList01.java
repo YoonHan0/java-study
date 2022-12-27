@@ -4,11 +4,14 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.StringTokenizer;
 
+/* StringTokenizer를 이용해서 출력 */
 public class PhoneList01 {
 
 	public static void main(String[] args) {
@@ -16,6 +19,11 @@ public class PhoneList01 {
 		
 		try {
 			File file = new File("phone.txt");
+			// 파일이 존재하는지의 여부 먼저 확인
+			if(!file.exists()) {
+				System.out.println("File Not Found!");
+				return ;
+			}
 			
 			System.out.println("======= 파일정보 =======");
 			System.out.println(file.getAbsolutePath());
@@ -31,14 +39,44 @@ public class PhoneList01 {
 			InputStreamReader isr = new InputStreamReader(fis, "utf-8");
 
 			//3. 보조스트림2(char1|char2|char3|char4|\n -> "char1char2char3char4")
-			new BufferedReader(isr);
+			br = new BufferedReader(isr);
 			
-		} catch (FileNotFoundException e) {
-			System.out.println("File Not Found:" + e);
-		} catch (UnsupportedEncodingException e) {
+			// 4. 처리
+			String line = null; // 라인 단위로 읽음
+			while((line = br.readLine()) != null) {
+				// System.out.println(line);
+				StringTokenizer st = new StringTokenizer(line, "\t "); // \t와 " "로 분리
+				int index = 0;
+				
+				while(st.hasMoreElements()) {
+					String token = st.nextToken();
+					
+					if(index == 0) { // 이름
+						System.out.print(token + ":");
+					}
+					else if(index == 1) {	// 전화번호1
+						System.out.print(token + ":");
+					}
+					else if(index == 2) {	// 전화번호2
+						System.out.print(token + ":");
+					}
+					else if(index == 3) {	// 전화번호3
+						System.out.println(token);
+					}
+					index++;
+				}
+			}
+		}catch (UnsupportedEncodingException e) {
 			System.out.println("Error:" + e);
+		}catch (IOException e) {
+			System.out.println("File Not Found:" + e); 
 		} finally {
-			br.close();
+			try {
+				br.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 	}
