@@ -15,7 +15,7 @@ public class HashSetTest {
 		s.add("마이콜");
 		s.add("또치");
 		s.add(s1);
-		// s.add(s2);	// '값'을 비교해서 추가(by value)
+		s.add(s2);	// '값'을 비교해서 추가(by value)
 		
 		System.out.println(s.size());
 		System.out.println(s.contains(s2)); // 역시 '값'을 비교해서 추가(by value)
