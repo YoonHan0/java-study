@@ -7,6 +7,9 @@ public class ObjectTest02 {
 		Point p2 = new Point(10, 20);
 		Point p3 = p2;
 		
+//		Point p4 = new Point(20, 20);
+//		Point p5 = new Point(10, 20);
+		
 		// == : 두 객체의 동일성 비교, 값 자체를 비교
 		System.out.println(p1 == p2);
 		System.out.println(p2 == p3);
@@ -16,6 +19,9 @@ public class ObjectTest02 {
 		// 동일하게 만들어 놓음 -> 사용자가 오버라이딩 해야함!
 		System.out.println(p1.equals(p2));
 		System.out.println(p2.equals(p3));
+		
+//		System.out.println(p4.equals(p5));
+		
 	}
 
 }
