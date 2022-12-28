@@ -15,6 +15,7 @@ public class NSLookup {
 			if(line.equals("exit")) {
 				break;
 			}
+			// InetAddress -> 이 클래스는 생성자가 없음
 			try {
 				InetAddress[] addresses = InetAddress.getAllByName(line); 
 				for(int i = 0; i < addresses.length; i++) {
