@@ -3,7 +3,6 @@ package test;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -44,11 +43,15 @@ public class TCPServer {
 					
 					int readByteCount = is.read(buffer); // blocking ?: 데이터를 입력하지 않으면 다음으로 넘어가지 않으니까
 					if(readByteCount == -1) {
+						// 서버 정상 종료(close() 호출)
 						System.out.println("[sever] closed by client");
 						break;
 					}
 					String data = new String(buffer, 0, readByteCount, "utf-8");
 					System.out.println("[server] received: " + data);
+					
+					// 6. 데이터 쓰기
+					os.write(data.getBytes("utf-8"));
 				}
 			} catch (IOException e) {
 				System.out.println("[server] error" + e);
