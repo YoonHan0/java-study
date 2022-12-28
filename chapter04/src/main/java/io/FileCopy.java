@@ -22,7 +22,8 @@ public class FileCopy {
 			os = new FileOutputStream("123.copy.png");
 			
 			int data = -1;
-			while((data = is.read()) != -1) {
+			// 입력 스트림으로부터 더 이상 바이트를 읽을 수 없으면 read()는 -1 리턴 
+			while((data = is.read()) != -1) { 
 				os.write(data);
 			}
 			

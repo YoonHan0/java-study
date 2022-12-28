@@ -19,7 +19,7 @@ public class BufferedOutputStreamTest {
 			
 			/// for(int i = 'a'; i <= 'z'; i++)
 			for(int i = 97; i <= 122; i++){
-				bos.write(i);
+				bos.write(i);	// 문자로 변환해서 write
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println("File Not Found:" + e);
