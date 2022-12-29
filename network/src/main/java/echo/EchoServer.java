@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class EchoServer {
 
@@ -47,7 +48,10 @@ public class EchoServer {
 					pw.println(data);	
 					//print(버퍼에 쌓기만하고 flush X) vs println
 				}
-			} catch (IOException e) {
+			}catch (SocketException ex) {
+				log("suddenly closed by server : " + ex);
+			} 
+			catch (IOException e) {
 				log("[server] error" + e);
 			} finally {
 				try {
