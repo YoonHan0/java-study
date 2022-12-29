@@ -32,8 +32,8 @@ public class EchoServer {
 			log("connected by client [" + remoteHostAddress + " : " + remoteHostPort + "]");
 
 			try {
-				PrintWriter pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true); // true : 버퍼가 다 채워지지 않아도 전송할 수 있게 하는 파라미터
-				BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream())); // 개행을 붙여서 연속되는 스트림의 경계로 표현된다.
+				PrintWriter pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "utf-8"), true); // true : 버퍼가 다 채워지지 않아도 전송할 수 있게 하는 파라미터
+				BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "utf-8")); // 개행을 붙여서 연속되는 스트림의 경계로 표현된다.
 
 				
 				while (true) {
@@ -44,7 +44,8 @@ public class EchoServer {
 						break;
 					}
 					log("received: " + data);
-					pw.println(data);
+					pw.println(data);	
+					//print(버퍼에 쌓기만하고 flush X) vs println
 				}
 			} catch (IOException e) {
 				log("[server] error" + e);
