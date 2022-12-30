@@ -9,33 +9,42 @@ import java.io.Writer;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChatServerThread extends Thread {
 	private String nickname;
 	private Socket socket;
+	private List<Writer> arrayWriter;
+	
 
-	public ChatServerThread(Socket socket) {
+	public ChatServerThread(Socket socket, List<Writer> arrayWriter) {
 		this.socket = socket;
+		this.arrayWriter = arrayWriter;
 	}
 
 	@Override
 	public void run() {
 		// 1. Remote Host Information
 		InetSocketAddress inetRemoteSocketAddress = (InetSocketAddress) socket.getRemoteSocketAddress();
+		// System.out.println(inetRemoteSocketAddress);
 		String remoteHostAddress = inetRemoteSocketAddress.getAddress().getHostAddress();
 		int remotePort = inetRemoteSocketAddress.getPort();
 		log("connected by client[" + remoteHostAddress + ":" + remotePort + "]");
 
+		PrintWriter pw = null;
 		try {
 			// 2. 스트림 얻기
-			PrintWriter pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "utf-8"), true);
+			pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "utf-8"), true);
+			arrayWriter.add(pw);
 			BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "utf-8"));
-
+			
 			// 3. 요청 처리
 			while (true) {
 				String data = br.readLine();	// Client에서 Write한 data Read
 				if (data == null) {
 					log("closed by client");	// [EchoServer#21] closed by client
+					((OutputStreamWriter) arrayWriter).flush();
 					break;
 				}
 				// 4. 프로토콜 분석
@@ -44,9 +53,15 @@ public class ChatServerThread extends Thread {
 				// ============================
 				String[] tokens = data.split(":");
 				this.nickname = tokens[0]; String message = tokens[1];
+				
 				userTalk(nickname, message);
 				
-				pw.println(message);
+				System.out.println(arrayWriter.size());
+				for(int i = 0; i < arrayWriter.size(); i++) {
+					PrintWriter printWriter = (PrintWriter) arrayWriter.get(i);
+					printWriter.println(data);
+				}
+				
 				
 				
 			}

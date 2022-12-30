@@ -1,14 +1,20 @@
 package chat;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 import chat.ChatServerThread;
 
 public class ChatServer {
 	public static final int PORT = 8000;
+	private static List<Writer> arrayWriter = new ArrayList<>();
+	
 	public static void main(String[] args) {
 		ServerSocket serverSocket = null;
 
@@ -22,7 +28,7 @@ public class ChatServer {
 
 			while (true) {
 				Socket socket = serverSocket.accept();
-				new ChatServerThread(socket).start();
+				new ChatServerThread(socket, arrayWriter).start();
 			}
 		} catch (IOException e) {
 			log("error:" + e);

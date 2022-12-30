@@ -10,7 +10,7 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.Scanner;
 
-import echo.EchoServer;
+import chat.ChatServer;
 
 public class ChatClient {
 	private static final String SERVER_IP = "127.0.0.1";
@@ -25,13 +25,21 @@ public class ChatClient {
 			scanner = new Scanner(System.in);
 			System.out.print("닉네임 >> ");
 			String nickname = scanner.nextLine();
-			socket.connect(new InetSocketAddress(SERVER_IP, EchoServer.PORT));
+			socket.connect(new InetSocketAddress(SERVER_IP, ChatServer.PORT));
 			welcomeMessage();
 
 			PrintWriter pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "utf-8"), true);
 			BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "utf-8"));
 
+//			String data = br.readLine();	// message만 넘겨받음
+//			if(data != null) {
+//				String[] tokens = data.split(":");
+//				nickname = tokens[0]; String message = tokens[1];
+//				System.out.println(nickname + ":" + message);
+//			}
+			
 			while (true) {
+
 				System.out.print("> ");
 				String line = scanner.nextLine();
 				if ("exit".equals(line)) {
@@ -40,14 +48,18 @@ public class ChatClient {
 				String nameLine = nickname + ":" + line;
 				pw.println(nameLine);
 
-				String data = br.readLine();	// message만 넘겨받음
+				String data = br.readLine(); // message만 넘겨받음
 				if (data == null) {
 					log("closed by server");
 					break;
 				}
-
-				System.out.println(nickname + ":" + data);
+				String[] tokens = data.split(":");
+				nickname = tokens[0];
+				String message = tokens[1];
+				System.out.println(nickname + ":" + message); ////////////// 그만 밀어어어어어어어어 //////////////
 			}
+			
+			
 
 		} catch (SocketException ex) {
 			log("suddenly closed by client : " + ex);
