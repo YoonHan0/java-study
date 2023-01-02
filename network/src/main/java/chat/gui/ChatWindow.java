@@ -21,7 +21,7 @@ public class ChatWindow {
 	private TextField textField;
 	private TextArea textArea;
 
-	public ChatWindow(String name) {
+	public ChatWindow(String name) {	// 위젯
 		frame = new Frame(name);
 		pannel = new Panel();
 		buttonSend = new Button("Send");
@@ -32,14 +32,19 @@ public class ChatWindow {
 	public void show() {
 		// Button
 		buttonSend.setBackground(Color.GRAY);
-		buttonSend.setForeground(Color.WHITE);
-		buttonSend.addActionListener( new ActionListener() {
+		buttonSend.setForeground(Color.BLACK);
+		buttonSend.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed( ActionEvent actionEvent ) {
+			public void actionPerformed(ActionEvent e) {
 				sendMessage();
 			}
 		});
-
+		
+		// 화살표 함수를 지원하는게 아니라 알아서 컴파일 해주는거
+//		buttonSend.addActionListener((e) -> {	
+//			
+//		});
+		
 		// Textfield
 		textField.setColumns(80);
 
@@ -54,15 +59,16 @@ public class ChatWindow {
 		frame.add(BorderLayout.CENTER, textArea);
 
 		// Frame
-		frame.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-				System.exit(0);
-			}
-		});
+		// frame.addWindowListener();
 		frame.setVisible(true);
 		frame.pack();
 	}
 	
 	private void sendMessage() {
+		String message = textField.getText();
+		System.out.println("메시지 보내는 프로토클 구현!! : " + message);
+		
+		textField.setText("");	// 초기화
+		textField.requestFocus();
 	}
 }
