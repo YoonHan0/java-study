@@ -47,6 +47,17 @@ public class ChatWindow {
 		
 		// Textfield
 		textField.setColumns(80);
+		textField.addKeyListener(new KeyAdapter() {
+
+			@Override
+			public void keyPressed(KeyEvent e) {	// Source/Override Implement Method...에서 설정
+				char KeyCode = e.getKeyChar();
+				if(KeyCode == KeyEvent.VK_ENTER) {	// Press Enter
+					sendMessage();
+				}
+			}
+			
+		});
 
 		// Pannel
 		pannel.setBackground(Color.LIGHT_GRAY);
@@ -59,9 +70,25 @@ public class ChatWindow {
 		frame.add(BorderLayout.CENTER, textArea);
 
 		// Frame
-		// frame.addWindowListener();
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				finish();
+			}
+			
+		});
 		frame.setVisible(true);
-		frame.pack();
+		frame.pack();	//packing까지 하면 Window가 보임
+		
+		// IOStream 받아오기
+		// ChatClientThread 생성하고 실행
+	}
+	private void finish() {
+		// quit protocol 작업
+		
+		
+		// exit java(Application)
+		System.exit(0);		// 프로그램이 끝날 때 '0'을 리턴해줘야함
 	}
 	
 	private void sendMessage() {
@@ -70,5 +97,23 @@ public class ChatWindow {
 		
 		textField.setText("");	// 초기화
 		textField.requestFocus();
+		
+		// ChatClientThread에서 서버로 부터 받음 메시지가 있다라고 치고
+		updateTextArea("마이콜: " + message);
 	}
+	
+	private void updateTextArea(String message) {
+		textArea.append(message);
+		textArea.append("\n");
+	}
+	
+	private class ChatClientThread extends Thread {		// inner class
+		@Override
+		public void run() {
+			
+			updateTextArea("안녕");
+		}
+	}
+
+	
 }
