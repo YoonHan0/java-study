@@ -37,7 +37,7 @@ public class ChatClient {
 			System.out.print("닉네임 >> ");
 			String nickname = scanner.nextLine();
 			pw.println( "join:" + nickname );
-			pw.flush();
+			// pw.flush();
 			
 			// welcomeMessage();	// 메시지 출력해주는 함수
 
@@ -58,13 +58,14 @@ public class ChatClient {
 				
 				if( "quit".equals( input )) { // || input == null
 					// 8. quit 프로토콜 처리
+					pw.println("quit");
 					log("closed by server");
 					break;
 				}
 				else {
 					// 9. 메시지 처리
 					pw.println("message:" + input);
-					pw.flush();
+					// pw.flush();
 				}
 			}			
 
@@ -76,9 +77,6 @@ public class ChatClient {
 			try {
 				if (socket != null && !socket.isClosed()) {
 					socket.close();
-				}
-				if (scanner != null) {
-					scanner.close();
 				}
 			} catch (IOException e) {
 				log("error: " + e);

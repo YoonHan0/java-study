@@ -59,6 +59,8 @@ public class ChatServerThread extends Thread {
 				}
 				else if( "quit".equals( tokens[0] ) ) {
 					doQuit(pw);
+					pw.println("");
+					break;
 				}
 				else {
 					ChatServer.log( "에러:알수 없는 요청(" + tokens[0] + ")" );
@@ -88,6 +90,7 @@ public class ChatServerThread extends Thread {
 				ex.printStackTrace();
 			}
 		}
+		System.out.println("서버 꺼짐");
 	}
 
 	private void doJoin(String nickName, Writer writer) {
@@ -100,8 +103,8 @@ public class ChatServerThread extends Thread {
 		addWriter(writer);
 		
 		 // ack
-//		printWriter.println( "join:ok" );
-//		printWriter.flush();
+		// ((PrintWriter) writer).println( "join:ok" );
+		// writer.flush();
 		
 	}
 	private void doMessage( String message ) {
@@ -119,6 +122,7 @@ public class ChatServerThread extends Thread {
 		removeWriter( writer );
 		String data = nickname + "님이 퇴장 하였습니다.";
 		broadcast( data );
+		log(data);
 	}
 	private void removeWriter( Writer writer ) {
 		listWriters.remove(writer);
