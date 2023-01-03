@@ -20,9 +20,12 @@ public class ChatWindow {
 	private Button buttonSend;
 	private TextField textField;
 	private TextArea textArea;
+	
+	private String name;
 
 	public ChatWindow(String name) {	// 위젯
-		frame = new Frame(name);
+		this.name = name;
+		frame = new Frame(this.name);	// 넘겨받은 name 사용
 		pannel = new Panel();
 		buttonSend = new Button("Send");
 		textField = new TextField();
@@ -36,7 +39,7 @@ public class ChatWindow {
 		buttonSend.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				sendMessage();
+				sendMessage(name);
 			}
 		});
 		
@@ -53,7 +56,7 @@ public class ChatWindow {
 			public void keyPressed(KeyEvent e) {	// Source/Override Implement Method...에서 설정
 				char KeyCode = e.getKeyChar();
 				if(KeyCode == KeyEvent.VK_ENTER) {	// Press Enter
-					sendMessage();
+					sendMessage(name);
 				}
 			}
 			
@@ -91,15 +94,15 @@ public class ChatWindow {
 		System.exit(0);		// 프로그램이 끝날 때 '0'을 리턴해줘야함
 	}
 	
-	private void sendMessage() {
+	private void sendMessage(String name) {
 		String message = textField.getText();
-		System.out.println("메시지 보내는 프로토클 구현!! : " + message);
+		System.out.println("메시지 보내는 프로토클 구현!! : " + message);	// TextField에 적힌 
 		
 		textField.setText("");	// 초기화
 		textField.requestFocus();
 		
 		// ChatClientThread에서 서버로 부터 받음 메시지가 있다라고 치고
-		updateTextArea("마이콜: " + message);
+		updateTextArea(name + " : " + message);
 	}
 	
 	private void updateTextArea(String message) {
