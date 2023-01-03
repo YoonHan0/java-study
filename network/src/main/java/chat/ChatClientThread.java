@@ -30,7 +30,7 @@ public class ChatClientThread extends Thread {
 					break;
 				}
 				/* 추가 */
-				System.out.println(data);
+				System.out.println(data);	// Client 본인에게 출력
 			}
 		} catch (IOException e) {
 			ChatClient.log("Error" + e);
