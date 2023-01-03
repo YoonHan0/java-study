@@ -34,6 +34,8 @@ public class ChatClientThread extends Thread {
 			}
 		} catch (IOException e) {
 			ChatClient.log("Error" + e);
+		} finally {
+			System.exit(0);		// 종료되면서 부모도 끝낼 수 있
 		}
 
 	}
