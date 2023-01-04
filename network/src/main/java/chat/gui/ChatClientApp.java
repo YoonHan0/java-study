@@ -16,7 +16,6 @@ public class ChatClientApp {
 
 	private static final String SERVER_IP = "127.0.0.1";
 	
-	
 	public static void main(String[] args) {
 		String name = null;
 		Scanner scanner = new Scanner(System.in);
@@ -48,27 +47,38 @@ public class ChatClientApp {
 			br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "utf-8"));
 			
 			// 4. join protocol 진행
-			new ChatClientThread(socket, br).start();
+			pw.println( "join:" + name );
 			
+			//new ChatClientThread(socket, br).start();
+			new ChatWindow(name, pw, br).show();
 				
+			//block
+			while(true) {
+				if(!socket.isClosed()) {
+					break;
+				}
+			}
+			// close
+			
+			
+			
+			
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		} 
 		
 		
 		// 		String line = br.readLine();
 		
-		String line = "JOIN:OK";
-		if("JOIN:OK".equals(line)) {
-			new ChatWindow(name).show();
-			return;
-		}
+//		String line = "JOIN:OK";
+//		if("JOIN:OK".equals(line)) {
+//			new ChatWindow(name).show();
+//			return;
+//		}
 
 	}
-	public static void getData(String name, String data) {
-		// data = 유저이름:메시지
-		System.out.println("getData" + name + ":" + data);
-		
+	public static void getData(String message, PrintWriter pw) {
+		System.out.println("메시지 체크 "+message);
+		pw.println("message" + ":" + message);		
 	}
-
 }

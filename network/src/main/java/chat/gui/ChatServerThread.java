@@ -51,10 +51,12 @@ public class ChatServerThread extends Thread {
 //				pw.println(data);
 				// ============================
 				String[] tokens = data.split(":");
+				
 				if( "join".equals(tokens[0])) {
 					doJoin(tokens[1], pw);
 				}
 				else if( "message".equals( tokens[0] ) ) {
+					// System.out.print(tokens[1]);
 					doMessage(tokens[1]);
 				}
 				else if( "quit".equals( tokens[0] ) ) {
@@ -134,7 +136,7 @@ public class ChatServerThread extends Thread {
 			for (Writer writer : listWriters) {
 				PrintWriter printWriter = (PrintWriter) writer;
 				printWriter.println(data);
-				printWriter.flush();
+				// printWriter.flush();
 			}
 		}
 	}

@@ -14,6 +14,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.Socket;
 
 import chat.ChatClient;
@@ -27,9 +28,14 @@ public class ChatWindow {
 	private TextArea textArea;
 	
 	private String name;
+	private PrintWriter pw;
+	private BufferedReader br;
 
-	public ChatWindow(String name) {	// 위젯
+	public ChatWindow(String name, PrintWriter pw, BufferedReader br) {	// 위젯
 		this.name = name;
+		this.pw = pw;
+		this.br =br;
+		
 		frame = new Frame(this.name);	// 넘겨받은 name 사용
 		pannel = new Panel();
 		buttonSend = new Button("Send");
@@ -44,7 +50,7 @@ public class ChatWindow {
 		buttonSend.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				sendMessage(name);
+				sendMessage(name, pw);
 			}
 		});
 		
@@ -61,7 +67,7 @@ public class ChatWindow {
 			public void keyPressed(KeyEvent e) {	// Source/Override Implement Method...에서 설정
 				char KeyCode = e.getKeyChar();
 				if(KeyCode == KeyEvent.VK_ENTER) {	// Press Enter
-					sendMessage(name);
+					sendMessage(name, pw);
 				}
 			}
 			
@@ -90,6 +96,7 @@ public class ChatWindow {
 		
 		// IOStream 받아오기
 		// ChatClientThread 생성하고 실행
+		new ChatClientThread(br).start();
 	}
 	private void finish() {
 		// quit protocol 작업
@@ -99,17 +106,17 @@ public class ChatWindow {
 		System.exit(0);		// 프로그램이 끝날 때 '0'을 리턴해줘야함
 	}
 	
-	private void sendMessage(String name) {
+	private void sendMessage(String name, PrintWriter pw) {
 		String message = textField.getText();
 		System.out.println("메시지 보내는 프로토클 구현!! : " + message);	// TextField에 적힌 
 		
 		textField.setText("");	// 초기화
 		textField.requestFocus();
 		
-		ChatClientApp.getData(name, message);
+		ChatClientApp.getData(message, pw);
 		
 		// ChatClientThread에서 서버로 부터 받음 메시지가 있다라고 치고
-		updateTextArea(name + ":" + message);
+		// updateTextArea(name + ":" + message);
 	}
 	
 	private void updateTextArea(String message) {
@@ -147,7 +154,7 @@ public class ChatWindow {
 			} finally {
 				System.exit(0);		// 종료되면서 부모도 끝낼 수 있
 			}
-			updateTextArea("안녕");
+			// updateTextArea("안녕");
 		}
 	}
 
