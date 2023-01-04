@@ -49,36 +49,14 @@ public class ChatClientApp {
 			// 4. join protocol 진행
 			pw.println( "join:" + name );
 			
-			//new ChatClientThread(socket, br).start();
 			new ChatWindow(name, pw, br).show();
-				
-			//block
-			while(true) {
-				if(!socket.isClosed()) {
-					break;
-				}
-			}
-			// close
-			
-			
-			
 			
 		} catch (IOException e) {
 			e.printStackTrace();
-		} 
-		
-		
-		// 		String line = br.readLine();
-		
-//		String line = "JOIN:OK";
-//		if("JOIN:OK".equals(line)) {
-//			new ChatWindow(name).show();
-//			return;
-//		}
+		} 		
 
 	}
 	public static void getData(String message, PrintWriter pw) {
-		System.out.println("메시지 체크 "+message);
 		pw.println("message" + ":" + message);		
 	}
 }

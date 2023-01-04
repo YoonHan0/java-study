@@ -56,7 +56,6 @@ public class ChatServerThread extends Thread {
 					doJoin(tokens[1], pw);
 				}
 				else if( "message".equals( tokens[0] ) ) {
-					// System.out.print(tokens[1]);
 					doMessage(tokens[1]);
 				}
 				else if( "quit".equals( tokens[0] ) ) {
@@ -67,17 +66,6 @@ public class ChatServerThread extends Thread {
 				else {
 					ChatServer.log( "에러:알수 없는 요청(" + tokens[0] + ")" );
 				}
-				
-				
-//				this.nickname = tokens[0]; String message = tokens[1];
-//				
-//				userTalk(nickname, message);
-//				
-//				System.out.println(arrayWriter.size());
-//				for(int i = 0; i < arrayWriter.size(); i++) {
-//					PrintWriter printWriter = (PrintWriter) arrayWriter.get(i);
-//					printWriter.println(data);
-//				}
 			}
 		} catch (SocketException ex) {
 			System.out.println("[server] suddenly closed by client");

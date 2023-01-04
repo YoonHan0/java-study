@@ -40,7 +40,8 @@ public class ChatWindow {
 		pannel = new Panel();
 		buttonSend = new Button("Send");
 		textField = new TextField();
-		textArea = new TextArea(30, 80);
+		textArea = new TextArea(20, 28);
+		
 	}
 
 	public void show() {
@@ -84,7 +85,7 @@ public class ChatWindow {
 		frame.add(BorderLayout.CENTER, textArea);
 
 		// Frame
-		frame.addWindowListener(new WindowAdapter() {
+		frame.addWindowListener(new WindowAdapter() {	// 창이 닫혔을 때
 			@Override
 			public void windowClosing(WindowEvent e) {
 				finish();
@@ -100,15 +101,15 @@ public class ChatWindow {
 	}
 	private void finish() {
 		// quit protocol 작업
-		
+		pw.println("quit");
 		
 		// exit java(Application)
-		System.exit(0);		// 프로그램이 끝날 때 '0'을 리턴해줘야함
+		System.exit(0);		// 프로그램이 끝날 때 '0'을 리턴해줘야함 -> return null
 	}
 	
 	private void sendMessage(String name, PrintWriter pw) {
 		String message = textField.getText();
-		System.out.println("메시지 보내는 프로토클 구현!! : " + message);	// TextField에 적힌 
+		// System.out.println("메시지 보내는 프로토클 구현!! : " + message);	// TextField에 적힌 
 		
 		textField.setText("");	// 초기화
 		textField.requestFocus();
@@ -136,14 +137,26 @@ public class ChatWindow {
 		public void run() {
 			try {
 				while (true) {
-					String data = bufferedReader.readLine();
+					String data = bufferedReader.readLine();	// 서버에서 넘겨주는 값을 받음
 					
-					if (data == null) {
-						ChatClient.log("서버 강제 종료!"); // 서버 강제 종료
+					if (data == null) {		// 서버 강제 종료 시에
+						updateTextArea("서버가 종료되어 자동으로 창이 닫힙니다"); 
+						
+						try {
+							Thread.sleep(5000);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
 						break;
 					}
-					else if (data.equals("")) {
-						ChatClient.log("서버로 부터 연결 끊김"); // quit!
+					else if (data.equals("")) {		// quit
+						updateTextArea("서버가 종료되어 자동으로 창이 닫힙니다");
+						
+						try {
+							Thread.sleep(5000);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
 						break;
 					}
 					/* 추가 */
@@ -154,7 +167,6 @@ public class ChatWindow {
 			} finally {
 				System.exit(0);		// 종료되면서 부모도 끝낼 수 있
 			}
-			// updateTextArea("안녕");
 		}
 	}
 
