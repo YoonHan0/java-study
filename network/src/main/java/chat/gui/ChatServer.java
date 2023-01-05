@@ -15,6 +15,8 @@ import chat.gui.ChatServerThread;
 public class ChatServer {
 	public static final int PORT = 8000;
 	private static List<Writer> listWriters = new ArrayList<Writer>();
+	private static List<String> users = new ArrayList<>();
+	
 	
 	public static void main(String[] args) {
 		ServerSocket serverSocket = null;
@@ -31,7 +33,7 @@ public class ChatServer {
 			// 3. 요청 대기
 			while (true) {
 				Socket socket = serverSocket.accept();
-				new ChatServerThread(socket, listWriters).start();
+				new ChatServerThread(socket, listWriters, users).start();
 			}
 		} catch (IOException e) {
 			log("error:" + e);

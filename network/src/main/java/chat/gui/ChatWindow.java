@@ -150,7 +150,7 @@ public class ChatWindow {
 						break;
 					}
 					else if (data.equals("")) {		// quit
-						updateTextArea("서버가 종료되어 자동으로 창이 닫힙니다");
+						updateTextArea("서버가 종료되어 5초 후 자동으로 창이 닫힙니다");
 						
 						try {
 							Thread.sleep(5000);
@@ -159,8 +159,14 @@ public class ChatWindow {
 						}
 						break;
 					}
+					else if(data.equals("join:ok")) {
+						welcomeMessage();
+					}
+					else {
+						updateTextArea(data);	// Client 본인에게 출력
+					}
 					/* 추가 */
-					updateTextArea(data);	// Client 본인에게 출력
+					
 				}
 			} catch (IOException e) {
 				ChatClient.log("Error" + e);
@@ -168,7 +174,9 @@ public class ChatWindow {
 				System.exit(0);		// 종료되면서 부모도 끝낼 수 있
 			}
 		}
+		private void welcomeMessage() {
+			updateTextArea("입장하였습니다. 즐거운 시간되세요!!");
+			updateTextArea("퇴장하는 명령어 : quit, 귓속말 양식은 \">:사용자이름-메시지\" 입니다!");
+		}
 	}
-
-	
 }
