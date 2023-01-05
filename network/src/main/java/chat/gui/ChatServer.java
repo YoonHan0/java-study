@@ -10,7 +10,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-import chat.ChatServerThread;
+import chat.gui.ChatServerThread;
 
 public class ChatServer {
 	public static final int PORT = 8000;
