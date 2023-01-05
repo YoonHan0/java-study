@@ -37,21 +37,9 @@ public class ChatClient {
 			System.out.print("닉네임 >> ");
 			String nickname = scanner.nextLine();
 			pw.println( "join:" + nickname );
-			// pw.flush();
-			
-			// welcomeMessage();	// 메시지 출력해주는 함수
 
-			
-
-//			String data = br.readLine();	// message만 넘겨받음
-//			if(data != null) {
-//				String[] tokens = data.split(":");
-//				nickname = tokens[0]; String message = tokens[1];
-//				System.out.println(nickname + ":" + message);
-//			}
-			// 6. ChatClientThread 시작
 			new ChatClientThread(socket, br).start();
-			
+						
 			while(true) {
 				System.out.print( ">>" );
 				String input = scanner.nextLine();
@@ -65,7 +53,7 @@ public class ChatClient {
 				else {
 					// 9. 메시지 처리
 					pw.println("message:" + input);
-					// pw.flush();
+					pw.flush();
 				}
 			}			
 
@@ -87,9 +75,4 @@ public class ChatClient {
 	public static void log(String message) {
 		System.out.println("[EchoClient] " + message);
 	}
-//	private static void welcomeMessage() {
-//		System.out.println("입장하였습니. 즐거운 시간되세요!!");
-//	}
-
-	
 }

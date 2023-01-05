@@ -22,15 +22,21 @@ public class ChatClientThread extends Thread {
 				String data = bufferedReader.readLine();
 				
 				if (data == null) {
-					ChatClient.log("서버 강제 종료!"); // 서버 강제 종료
+					ChatClient.log("2서버 강제 종료!"); // 서버 강제 종료
 					break;
 				}
 				else if (data.equals("")) {
 					ChatClient.log("서버로 부터 연결 끊김"); // quit!
 					break;
 				}
+				else if(data.equals("join:ok")) {
+					welcomeMessage();
+				}
 				/* 추가 */
-				System.out.println(data);	// Client 본인에게 출력
+				else {
+					System.out.println(data);	// Client 본인에게 출력
+				}
+				
 			}
 		} catch (IOException e) {
 			ChatClient.log("Error" + e);
@@ -38,5 +44,9 @@ public class ChatClientThread extends Thread {
 			System.exit(0);		// 종료되면서 부모도 끝낼 수 있
 		}
 
+	}
+	private static void welcomeMessage() {
+		System.out.println("입장하였습니다. 즐거운 시간되세요!!");
+		System.out.println("퇴장하는 명령어 : quit, 귓속말 양식은 \">:사용자이름-메시지\" 입니다!");
 	}
 }
