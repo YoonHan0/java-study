@@ -55,16 +55,15 @@ public class ChatServerThread extends Thread {
 				}
 				else if ("message".equals(tokens[0])) {
 
-					if (">".equals(tokens[1])) { // 귓속말이면
+					if (tokens[1].contains(">")) { // 귓속말이면 message:윤한영>안녕
 						// System.out.println("입력받은 메시지 : " + tokens[2]); // 확인용 println()
-						String[] nickname_message = tokens[2].split("-");
+						String[] nickname_message = tokens[1].split(">");
 
 						doCheckUsers(nickname_message[0], nickname_message[1]);
 					} else { // 귓속말이 아니면!
 						doMessage(tokens[1]);
 					}
-				}
-				else if ("quit".equals(tokens[0])) {
+				} else if ("quit".equals(tokens[0])) {
 					doQuit(pw);
 					pw.println("");
 					break;
@@ -87,6 +86,7 @@ public class ChatServerThread extends Thread {
 		}
 		System.out.println("서버 꺼짐");
 	}
+
 	/* 귓속말 */
 	private void doCheckUsers(String nickname, String message) {
 		PrintWriter printWriter = null;
@@ -94,19 +94,20 @@ public class ChatServerThread extends Thread {
 			synchronized (users) {
 				for (int i = 0; i < users.size(); i++) {
 					String name = users.get(i);
-					
-					if (name.equals(nickname)) {						
+
+					if (name.equals(nickname)) {
 						printWriter = (PrintWriter) listWriters.get(i);
-						printWriter.println(this.nickname + "님이 보낸 귓속말: " + message);	// 귓속말을 보낸 사용자 + 메시지
+						printWriter.println(this.nickname + "님이 보낸 귓속말: " + message); // 귓속말을 보낸 사용자 + 메시지
 						printWriter.flush();
 						return;
 					}
 				}
-				System.out.println("존재하지 않는 사용자입니다!");		// 서버에 출력됨 -> 수정 필요할듯
+				System.out.println("존재하지 않는 사용자입니다!"); // 서버에 출력됨 -> 수정 필요할듯
 			}
 		}
-		
+
 	}
+
 	private void doJoin(String nickName, Writer writer) {
 		this.nickname = nickName;
 
@@ -117,7 +118,7 @@ public class ChatServerThread extends Thread {
 		addWriter(writer);
 
 		// ack
-		((PrintWriter) writer).println( "join:ok" );
+		((PrintWriter) writer).println("join:ok");
 	}
 
 	private void doMessage(String message) {

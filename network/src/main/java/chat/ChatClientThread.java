@@ -22,7 +22,7 @@ public class ChatClientThread extends Thread {
 				String data = bufferedReader.readLine();
 				
 				if (data == null) {
-					ChatClient.log("2서버 강제 종료!"); // 서버 강제 종료
+					ChatClient.log("서버가 강제로 종료되었습니다!"); // 서버 강제 종료
 					break;
 				}
 				else if (data.equals("")) {
@@ -47,6 +47,6 @@ public class ChatClientThread extends Thread {
 	}
 	private static void welcomeMessage() {
 		System.out.println("입장하였습니다. 즐거운 시간되세요!!");
-		System.out.println("퇴장하는 명령어 : quit, 귓속말 양식은 \">:사용자이름-메시지\" 입니다!");
+		System.out.println("퇴장하는 명령어 : quit, 귓속말 양식은 \"사용자이름>메시지\" 입니다!");
 	}
 }

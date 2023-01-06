@@ -176,7 +176,7 @@ public class ChatWindow {
 		}
 		private void welcomeMessage() {
 			updateTextArea("입장하였습니다. 즐거운 시간되세요!!");
-			updateTextArea("퇴장하는 명령어 : quit, 귓속말 양식은 \">:사용자이름-메시지\" 입니다!");
+			updateTextArea("퇴장하는 명령어 : quit, 귓속말 양식은 \"사용자이름>메시지\" 입니다!");
 		}
 	}
 }

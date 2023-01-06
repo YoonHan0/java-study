@@ -53,11 +53,11 @@ public class ChatServerThread extends Thread {
 				if ("join".equals(tokens[0])) {
 					doJoin(tokens[1], pw);
 				} 
-				else if ("message".equals(tokens[0])) {		
+				else if ("message".equals(tokens[0])) {
 					
-					if(">".equals(tokens[1])) {		// 귓속말이면
+					if(tokens[1].contains(">")) {		// 귓속말이면   message:윤한영>안녕
 						// System.out.println("입력받은 메시지 : " + tokens[2]);	// 확인용 println()
-						String[] nickname_message = tokens[2].split("-"); 
+						String[] nickname_message = tokens[1].split(">"); 
 						
 						doCheckUsers(nickname_message[0], nickname_message[1]);
 					}
@@ -112,7 +112,6 @@ public class ChatServerThread extends Thread {
 
 	private void doJoin(String nickName, Writer writer) {
 		this.nickname = nickName;
-
 		String data = nickName + "님이 참여하였습니다.";
 		broadcast(data);
 
@@ -120,7 +119,7 @@ public class ChatServerThread extends Thread {
 		addWriter(writer);
 
 		// ask
-		 ((PrintWriter) writer).println( "join:ok" );
+		 ((PrintWriter) writer).println("join:ok");
 	}
 
 	private void doMessage(String message) {
