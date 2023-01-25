@@ -51,6 +51,8 @@ public class ChatServerThread extends Thread {
 				String[] tokens = data.split(":");
 				
 				if ("join".equals(tokens[0])) {
+					// 그거 아니야 다시!
+					
 					doJoin(tokens[1], pw);
 				} 
 				else if ("message".equals(tokens[0])) {

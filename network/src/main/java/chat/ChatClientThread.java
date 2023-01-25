@@ -32,6 +32,9 @@ public class ChatClientThread extends Thread {
 				else if(data.equals("join:ok")) {
 					welcomeMessage();
 				}
+				else if (data.equals("rename")) {
+					System.out.println("닉네임이 중복됩니다. 다시 입력해주세요!");
+				}
 				/* 추가 */
 				else {
 					System.out.println(data);	// Client 본인에게 출력
